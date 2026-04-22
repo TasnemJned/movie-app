@@ -24,6 +24,25 @@ router.get("/", async (req, res) => {
   }
 });
 
+// UPDATE - update movie by id
+router.put("/:id", async (req, res) => {
+  try {
+    const updatedMovie = await Movie.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedMovie) {
+      return res.status(404).json({ message: "Movie not found" });
+    }
+
+    res.status(200).json(updatedMovie);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 // DELETE - delete movie by id
 router.delete("/:id", async (req, res) => {
   try {
