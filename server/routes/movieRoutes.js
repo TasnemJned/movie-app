@@ -14,4 +14,14 @@ router.post("/", async (req, res) => {
   }
 });
 
+// GET - get all movies
+router.get("/", async (req, res) => {
+  try {
+    const movies = await Movie.find();
+    res.status(200).json(movies);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 export default router;
