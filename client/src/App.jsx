@@ -6,11 +6,11 @@ import MovieForm from "./components/MovieForm";
 function App() {
   const [movies, setMovies] = useState([]);
 
-  // ✅ حالات loading + error
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
+  // ✅ fetch function (مهم لنعيد استخدامه)
+  const fetchMovies = () => {
     fetch("http://localhost:5000/api/movies")
       .then((res) => res.json())
       .then((data) => {
@@ -20,9 +20,21 @@ function App() {
       .catch(() => {
         setError("Failed to load movies");
         setLoading(false);
-  }, 2000); // ⬅️ تأخير 2 ثانية
+      });
+  };
+
+  // ✅ useEffect + auto refresh
+  useEffect(() => {
+    fetchMovies();
+
+    const interval = setInterval(() => {
+      fetchMovies();
+    }, 5000); // كل 5 ثواني
+
+    return () => clearInterval(interval);
   }, []);
 
+  // ✅ ADD
   const addMovie = (title, genre) => {
     fetch("http://localhost:5000/api/movies", {
       method: "POST",
@@ -43,6 +55,7 @@ function App() {
       .catch(() => setError("Failed to add movie"));
   };
 
+  // ✅ DELETE
   const deleteMovie = (id) => {
     fetch(`http://localhost:5000/api/movies/${id}`, {
       method: "DELETE",
@@ -51,6 +64,29 @@ function App() {
         setMovies(movies.filter((movie) => movie._id !== id));
       })
       .catch(() => setError("Failed to delete movie"));
+  };
+
+  // ✅ UPDATE (الجديد 🔥)
+  const updateMovie = (id, title, genre) => {
+    fetch(`http://localhost:5000/api/movies/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        genre,
+      }),
+    })
+      .then((res) => res.json())
+      .then((updatedMovie) => {
+        setMovies(
+          movies.map((movie) =>
+            movie._id === id ? updatedMovie : movie
+          )
+        );
+      })
+      .catch(() => setError("Failed to update movie"));
   };
 
   return (
@@ -67,7 +103,11 @@ function App() {
       {!loading && !error && (
         <>
           <MovieForm addMovie={addMovie} />
-          <MovieList movies={movies} deleteMovie={deleteMovie} />
+          <MovieList
+            movies={movies}
+            deleteMovie={deleteMovie}
+            updateMovie={updateMovie}
+          />
         </>
       )}
     </div>

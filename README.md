@@ -2,44 +2,49 @@
 
 ## About
 
-This is a simple full stack project that I built using React, Node.js and MongoDB.
-The idea is to manage a list of movies where the user can add, view and delete movies.
+This is a simple full stack movie app that I built using React, Node.js and MongoDB.
+The goal of the app is to manage a list of movies where users can add, view and delete movies easily.
 
 
 
 ## Features
 
-Add a movie
-Show all movies
+Add a new movie
+View all movies
 Delete a movie
 Filter movies by genre
-Simple UI with loading and error messages
+Loading and error handling in the UI
 
 
 
-## Technologies
+## Technologies Used
 
-* React (frontend)
-* Node.js + Express (backend)
-* MongoDB (database)
+React (Vite)
+Node.js + Express
+MongoDB Atlas
 
 
 
-## How to run
+## How to Run the Project
 
-### Backend
+### 1. Clone the project
 
 ```bash
-cd server
-npm install
-node index.js
+git clone <your-repo-link>
+cd movie-app
 ```
 
-### Frontend
+### 2. Install dependencies
 
 ```bash
-cd client
 npm install
+cd client && npm install
+cd ../server && npm install
+```
+
+### 3. Run the project
+
+```bash
 npm run dev
 ```
 
@@ -47,4 +52,4 @@ npm run dev
 
 ## Notes
 
-This project helped me understand how frontend and backend work together and how to use APIs with React.
+This project helped me understand how frontend and backend connect together using APIs, and how to manage data using MongoDB.
