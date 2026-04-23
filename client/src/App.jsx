@@ -1,18 +1,29 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import MovieList from "./components/MovieList";
+import MovieForm from "./components/MovieForm";
 
 function App() {
   const [movies, setMovies] = useState([]);
-  const [title, setTitle] = useState("");
-  const [genre, setGenre] = useState("");
+
+  // ✅ حالات loading + error
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:5000/api/movies")
       .then((res) => res.json())
-      .then((data) => setMovies(data));
+      .then((data) => {
+        setMovies(data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setError("Failed to load movies");
+        setLoading(false);
+  }, 2000); // ⬅️ تأخير 2 ثانية
   }, []);
 
-  const addMovie = () => {
+  const addMovie = (title, genre) => {
     fetch("http://localhost:5000/api/movies", {
       method: "POST",
       headers: {
@@ -28,61 +39,37 @@ function App() {
       .then((res) => res.json())
       .then((newMovie) => {
         setMovies([...movies, newMovie]);
-        setTitle("");
-        setGenre("");
-      });
+      })
+      .catch(() => setError("Failed to add movie"));
   };
 
-  // 🔥 DELETE
   const deleteMovie = (id) => {
     fetch(`http://localhost:5000/api/movies/${id}`, {
       method: "DELETE",
-    }).then(() => {
-      setMovies(movies.filter((movie) => movie._id !== id));
-    });
+    })
+      .then(() => {
+        setMovies(movies.filter((movie) => movie._id !== id));
+      })
+      .catch(() => setError("Failed to delete movie"));
   };
 
   return (
     <div style={{ textAlign: "center" }}>
       <h1>Movie App 🎬</h1>
 
-      {/* ➕ Add Movie */}
-      <div style={{ marginBottom: "20px" }}>
-        <input
-          placeholder="Movie title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <input
-          placeholder="Genre"
-          value={genre}
-          onChange={(e) => setGenre(e.target.value)}
-        />
-        <button onClick={addMovie}>Add Movie</button>
-      </div>
+      {/* ⏳ Loading */}
+      {loading && <p>Loading movies...</p>}
 
-      {/* 🎬 Movies */}
-      {movies.map((movie) => (
-        <div
-          key={movie._id}
-          style={{
-            border: "1px solid #ccc",
-            margin: "10px auto",
-            padding: "10px",
-            width: "300px",
-            borderRadius: "10px",
-          }}
-        >
-          <h3>{movie.title}</h3>
-          <p>{movie.genre}</p>
-          <p>⭐ {movie.averageRating}</p>
+      {/* ❌ Error */}
+      {error && <p style={{ color: "red" }}>{error}</p>}
 
-          {/* ❌ Delete Button */}
-          <button onClick={() => deleteMovie(movie._id)}>
-            Delete
-          </button>
-        </div>
-      ))}
+      {/* ✅ Main UI */}
+      {!loading && !error && (
+        <>
+          <MovieForm addMovie={addMovie} />
+          <MovieList movies={movies} deleteMovie={deleteMovie} />
+        </>
+      )}
     </div>
   );
 }
