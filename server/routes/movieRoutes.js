@@ -14,15 +14,27 @@ router.post("/", async (req, res) => {
   }
 });
 
-// GET - get all movies
+
+// GET - get all movies (WITH FILTER ⭐)
 router.get("/", async (req, res) => {
   try {
-    const movies = await Movie.find();
+    const { genre } = req.query;
+
+    let filter = {};
+
+    // إذا المستخدم بعث genre
+    if (genre) {
+      filter.genre = genre;
+    }
+
+    const movies = await Movie.find(filter);
+
     res.status(200).json(movies);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
+
 
 // UPDATE - update movie by id
 router.put("/:id", async (req, res) => {
@@ -42,6 +54,7 @@ router.put("/:id", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
 
 // DELETE - delete movie by id
 router.delete("/:id", async (req, res) => {

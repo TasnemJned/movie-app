@@ -1,12 +1,14 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors"; // 👈 أضف هذا
 import movieRoutes from "./routes/movieRoutes.js";
 
 dotenv.config();
 
 const app = express();
 
+app.use(cors()); // 👈 أضف هذا
 app.use(express.json());
 
 app.use("/api/movies", movieRoutes);
