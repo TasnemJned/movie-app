@@ -1,0 +1,10 @@
+{
+  "name": "movie-app",
+  "version": "1.0.0",
+  "dependencies": {
+    "concurrently": "^9.2.1"
+  },
+  "scripts": {
+    "dev": "concurrently \"cd server && node index.js\" \"cd client && npm run dev\""
+  }
+}
