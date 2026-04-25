@@ -6,7 +6,8 @@ const movieSchema = new mongoose.Schema({
     required: true
   },
   genre: {
-    type: String
+    type: String,
+    required: true
   },
   releaseYear: {
     type: Number
@@ -15,6 +16,12 @@ const movieSchema = new mongoose.Schema({
     type: Number,
     min: 0,
     max: 5
+  },
+
+  // ✅ الجديد (Custom Field)
+  director: {
+    type: String,
+    default: "Unknown"
   }
 });
 

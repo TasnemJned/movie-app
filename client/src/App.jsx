@@ -35,7 +35,7 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-  // ===== ADD =====
+  // ===== ADD (UPDATED 🔥) =====
   const addMovie = (title, genre) => {
     fetch("http://localhost:5000/api/movies", {
       method: "POST",
@@ -47,6 +47,7 @@ function App() {
         genre,
         releaseYear: 2024,
         averageRating: 5,
+        director: "Unknown", // ✅ الجديد
       }),
     })
       .then((res) => res.json())
@@ -97,8 +98,9 @@ function App() {
 
   return (
     <div className="app-container">
-      <h1 className="title">Movie App</h1>
+      <h1 className="title">Movie App 🎬</h1>
 
+      {/* 🔍 Filter */}
       <input
         type="text"
         placeholder="Filter by genre..."
@@ -107,10 +109,13 @@ function App() {
         className="filter-input"
       />
 
+      {/* ⏳ Loading */}
       {loading && <p>Loading movies...</p>}
 
+      {/* ❌ Error */}
       {error && <p style={{ color: "red" }}>{error}</p>}
 
+      {/* ✅ Main UI */}
       {!loading && !error && (
         <>
           <MovieForm addMovie={addMovie} />
