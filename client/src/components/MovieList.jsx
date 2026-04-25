@@ -1,4 +1,5 @@
 function MovieList({ movies, deleteMovie, updateMovie }) {
+
   const handleEdit = (movie) => {
     const newTitle = prompt("Enter new title:", movie.title);
     const newGenre = prompt("Enter new genre:", movie.genre);
@@ -6,6 +7,14 @@ function MovieList({ movies, deleteMovie, updateMovie }) {
     if (!newTitle || !newGenre) return;
 
     updateMovie(movie._id, newTitle, newGenre);
+  };
+
+  // ✅ DELETE CONFIRMATION (المطلوب)
+  const handleDelete = (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this movie?");
+    if (!confirmDelete) return;
+
+    deleteMovie(id);
   };
 
   return (
@@ -16,10 +25,14 @@ function MovieList({ movies, deleteMovie, updateMovie }) {
           <p>{movie.genre}</p>
           <p>⭐ {movie.averageRating}</p>
 
-          <button onClick={() => handleEdit(movie)}>Edit</button>
-          <button onClick={() => deleteMovie(movie._id)}>
-            Delete
-          </button>
+          <div className="buttons">
+            <button onClick={() => handleEdit(movie)}>Edit</button>
+
+            {/* ✅ بدلنا delete */}
+            <button onClick={() => handleDelete(movie._id)}>
+              Delete
+            </button>
+          </div>
         </div>
       ))}
     </div>

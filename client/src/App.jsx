@@ -8,6 +8,8 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const [filter, setFilter] = useState("");
+
   // ===== Fetch Movies =====
   const fetchMovies = () => {
     fetch("http://localhost:5000/api/movies")
@@ -88,24 +90,32 @@ function App() {
       .catch(() => setError("Failed to update movie"));
   };
 
+  // ===== FILTER =====
+  const filteredMovies = movies.filter((movie) =>
+    movie.genre.toLowerCase().includes(filter.toLowerCase())
+  );
+
   return (
     <div className="app-container">
-      <h1 className="title">
-        Movie App 
-      </h1>
+      <h1 className="title">Movie App</h1>
 
-      {/* Loading */}
+      <input
+        type="text"
+        placeholder="Filter by genre..."
+        value={filter}
+        onChange={(e) => setFilter(e.target.value)}
+        className="filter-input"
+      />
+
       {loading && <p>Loading movies...</p>}
 
-      {/* Error */}
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      {/* Main UI */}
       {!loading && !error && (
         <>
           <MovieForm addMovie={addMovie} />
           <MovieList
-            movies={movies}
+            movies={filteredMovies}
             deleteMovie={deleteMovie}
             updateMovie={updateMovie}
           />
