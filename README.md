@@ -1,4 +1,4 @@
-# Movie App 🎬
+# Movie App 
 
 ## About
 
@@ -12,36 +12,40 @@ This application solves the problem of managing and organizing movie collections
 
 ## Features
 
-### 🎥 Movies
-- Add a new movie
-- View all movies
-- Update a movie
-- Delete a movie
-- Filter movies by genre
+###  Movies
 
-### 👤 Users
-- Add users
-- View users
+* Add a new movie
+* View all movies
+* Update a movie
+* Delete a movie
+* ⭐ Filter movies by genre
 
-### ⭐ Reviews
-- Add reviews linked to movies and users
-- View reviews with populated movie and user data
-- Get reviews by user
-- Delete reviews
+###  Users
 
-### 💡 UI
-- Loading and error handling
-- Auto refresh every few seconds
+* Add users
+* View users
+
+###  Reviews
+
+* Add reviews linked to movies and users
+* View reviews with populated movie and user data
+* Get reviews by user
+* Delete reviews
+
+###  UI
+
+* Loading and error handling
+* Auto refresh every few seconds
 
 ---
 
 ## Technologies Used
 
-- React (Vite)
-- Node.js
-- Express
-- MongoDB Atlas
-- Mongoose
+* React (Vite)
+* Node.js
+* Express
+* MongoDB Atlas
+* Mongoose
 
 ---
 
@@ -49,34 +53,39 @@ This application solves the problem of managing and organizing movie collections
 
 The application uses three collections:
 
-- **Movies**
-- **Users**
-- **Reviews**
+* **Movies**
+* **Users**
+* **Reviews**
 
 ### Relationships:
-- Each review references a movie and a user using `ObjectId`
-- Data is linked between collections
-- `populate()` is used to retrieve related data (movie title, user name, etc.)
+
+* Each review references a movie and a user using `ObjectId`
+* Data is linked between collections
+* `populate()` is used to retrieve related data (movie title, user name, etc.)
 
 ---
 
 ## API Endpoints
 
 ### Movies
-- `GET /api/movies`
-- `POST /api/movies`
-- `PUT /api/movies/:id`
-- `DELETE /api/movies/:id`
+
+* `GET /api/movies`
+* `GET /api/movies?genre=Action` ⭐ (filter by genre)
+* `POST /api/movies`
+* `PUT /api/movies/:id`
+* `DELETE /api/movies/:id`
 
 ### Users
-- `GET /api/users`
-- `POST /api/users`
+
+* `GET /api/users`
+* `POST /api/users`
 
 ### Reviews
-- `GET /api/reviews`
-- `POST /api/reviews`
-- `GET /api/reviews/user/:userId`
-- `DELETE /api/reviews/:id`
+
+* `GET /api/reviews`
+* `POST /api/reviews`
+* `GET /api/reviews/user/:userId`
+* `DELETE /api/reviews/:id`
 
 ---
 
@@ -87,26 +96,41 @@ The application uses three collections:
 ```bash
 git clone <your-repo-link>
 cd movie-app
-2. Install dependencies
+```
+
+### 2. Install dependencies
+
+```bash
 npm install
 cd client && npm install
 cd ../server && npm install
-3. Run the project
+```
+
+### 3. Run the project
+
+```bash
 npm run dev
-Project Structure
+```
+
+---
+
+## Project Structure
 
 The backend follows a structured pattern:
 
-routes -> controllers -> models
-Routes handle API endpoints
-Controllers contain business logic
-Models define database schemas
-Notes
+* routes → controllers → models
+* Routes handle API endpoints
+* Controllers contain business logic
+* Models define database schemas
+
+---
+
+## Notes
 
 This project helped me understand:
 
-How frontend and backend communicate using APIs
-How to structure a backend using controllers
-How to use MongoDB with Mongoose
-How to create relationships between collections using ObjectId
-How to use populate() to fetch related data
+* How frontend and backend communicate using APIs
+* How to structure a backend using controllers
+* How to use MongoDB with Mongoose
+* How to create relationships between collections using ObjectId
+* How to use `populate()` to fetch related data
