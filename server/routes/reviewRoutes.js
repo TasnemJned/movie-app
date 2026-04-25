@@ -2,44 +2,16 @@ import express from "express";
 import mongoose from "mongoose";
 import Review from "../models/Review.js";
 
+// ⭐ استيراد controller
+import { createReview } from "../controllers/reviewController.js";
+
 const router = express.Router();
 
 
 // ==========================
-// POST - add review
+// POST - add review (Controller)
 // ==========================
-router.post("/", async (req, res) => {
-  try {
-    const { movieId, userId, rating, comment } = req.body;
-
-    // تحقق من القيم
-    if (!movieId || !userId || rating === undefined) {
-      return res.status(400).json({ message: "Missing required fields" });
-    }
-
-    // تحقق من صحة ObjectId
-    if (
-      !mongoose.Types.ObjectId.isValid(movieId) ||
-      !mongoose.Types.ObjectId.isValid(userId)
-    ) {
-      return res.status(400).json({ message: "Invalid ID format" });
-    }
-
-    const newReview = new Review({
-      movieId: new mongoose.Types.ObjectId(movieId),
-      userId: new mongoose.Types.ObjectId(userId),
-      rating,
-      comment,
-    });
-
-    const savedReview = await newReview.save();
-
-    res.status(201).json(savedReview);
-  } catch (error) {
-    console.error("ERROR:", error.message);
-    res.status(500).json({ error: error.message });
-  }
-});
+router.post("/", createReview);
 
 
 // ==========================
@@ -48,8 +20,8 @@ router.post("/", async (req, res) => {
 router.get("/user/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
-// validate ObjectId to prevent MongoDB errors
 
+    // validate ObjectId to prevent MongoDB errors
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(400).json({ message: "Invalid user ID" });
     }
@@ -88,7 +60,6 @@ router.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    // تحقق من صحة ID
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: "Invalid review ID" });
     }

@@ -18,6 +18,10 @@ The goal of the app is to manage a list of movies where users can add, view, upd
 * Auto refresh every few seconds
 
 ---
+## Manage users (add & view users)
+Add reviews linked to movies and users
+View reviews with populated movie and user data
+Delete reviews
 
 ## Technologies Used
 
