@@ -5,11 +5,10 @@ import MovieForm from "./components/MovieForm";
 
 function App() {
   const [movies, setMovies] = useState([]);
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // ✅ fetch function (مهم لنعيد استخدامه)
+  // ===== Fetch Movies =====
   const fetchMovies = () => {
     fetch("http://localhost:5000/api/movies")
       .then((res) => res.json())
@@ -23,18 +22,18 @@ function App() {
       });
   };
 
-  // ✅ useEffect + auto refresh
+  // ===== Auto Refresh =====
   useEffect(() => {
     fetchMovies();
 
     const interval = setInterval(() => {
       fetchMovies();
-    }, 5000); // كل 5 ثواني
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
 
-  // ✅ ADD
+  // ===== ADD =====
   const addMovie = (title, genre) => {
     fetch("http://localhost:5000/api/movies", {
       method: "POST",
@@ -55,7 +54,7 @@ function App() {
       .catch(() => setError("Failed to add movie"));
   };
 
-  // ✅ DELETE
+  // ===== DELETE =====
   const deleteMovie = (id) => {
     fetch(`http://localhost:5000/api/movies/${id}`, {
       method: "DELETE",
@@ -66,7 +65,7 @@ function App() {
       .catch(() => setError("Failed to delete movie"));
   };
 
-  // ✅ UPDATE (الجديد 🔥)
+  // ===== UPDATE =====
   const updateMovie = (id, title, genre) => {
     fetch(`http://localhost:5000/api/movies/${id}`, {
       method: "PUT",
@@ -90,16 +89,18 @@ function App() {
   };
 
   return (
-    <div style={{ textAlign: "center" }}>
-      <h1>Movie App 🎬</h1>
+    <div className="app-container">
+      <h1 className="title">
+        Movie App 
+      </h1>
 
-      {/* ⏳ Loading */}
+      {/* Loading */}
       {loading && <p>Loading movies...</p>}
 
-      {/* ❌ Error */}
+      {/* Error */}
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      {/* ✅ Main UI */}
+      {/* Main UI */}
       {!loading && !error && (
         <>
           <MovieForm addMovie={addMovie} />

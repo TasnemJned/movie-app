@@ -9,18 +9,9 @@ function MovieList({ movies, deleteMovie, updateMovie }) {
   };
 
   return (
-    <div>
+    <div className="movie-list">
       {movies.map((movie) => (
-        <div
-          key={movie._id}
-          style={{
-            border: "1px solid #ccc",
-            margin: "10px auto",
-            padding: "10px",
-            width: "300px",
-            borderRadius: "10px",
-          }}
-        >
+        <div key={movie._id} className="movie-card">
           <h3>{movie.title}</h3>
           <p>{movie.genre}</p>
           <p>⭐ {movie.averageRating}</p>
