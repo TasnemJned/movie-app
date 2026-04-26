@@ -47,7 +47,7 @@ function App() {
         genre,
         releaseYear: 2024,
         averageRating: 5,
-        director: "Unknown", // ✅ الجديد
+        director: "Unknown", //  الجديد
       }),
     })
       .then((res) => res.json())
@@ -98,7 +98,7 @@ function App() {
 
   return (
     <div className="app-container">
-      <h1 className="title">Movie App 🎬</h1>
+      <h1 className="title">Movie App </h1>
 
       {/* 🔍 Filter */}
       <input

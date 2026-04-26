@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import Review from "../models/Review.js";
 
-// ⭐ استيراد controller
+// controller
 import { createReview } from "../controllers/reviewController.js";
 
 const router = express.Router();

@@ -18,7 +18,7 @@ app.use(express.json());
 // Routes
 app.use("/api/movies", movieRoutes);
 app.use("/api/reviews", reviewRoutes);
-app.use("/api/users", userRoutes); // ⭐ جديد
+app.use("/api/users", userRoutes); // 
 
 // Database connection
 mongoose

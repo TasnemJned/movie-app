@@ -18,7 +18,7 @@ const movieSchema = new mongoose.Schema({
     max: 5
   },
 
-  // ✅ الجديد (Custom Field)
+  // (Custom Field)
   director: {
     type: String,
     default: "Unknown"

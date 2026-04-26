@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// POST user (اختياري بس مفيد)
+// POST user 
 router.post("/", async (req, res) => {
   try {
     const newUser = new User(req.body);
