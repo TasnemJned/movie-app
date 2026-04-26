@@ -137,6 +137,20 @@ npm run dev
 
 ---
 
+
+## Environment Setup
+
+Create a `.env` file inside the `server` folder and add:
+
+MONGO_URI=your_mongodb_connection_string
+PORT=5000
+
+Example:
+
+MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/movie-app
+PORT=5000
+---
+
 ##  Project Structure
 
 The backend follows a clean structure:
